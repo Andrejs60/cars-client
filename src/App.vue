@@ -1,35 +1,16 @@
 <template>
   <NavBar />
-  <div class="container"><router-view /></div>
+  <Container><router-view /></Container>
 </template>
 
 <script>
 import NavBar from "./components/navigation/NavBar.vue";
+import Container from "./components/Container.vue";
 
 export default {
   name: "App",
-  components: { NavBar },
+  components: { NavBar, Container },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-}
-
-.container {
-  background: red;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-</style>
+<style></style>
