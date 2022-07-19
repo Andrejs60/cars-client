@@ -26,7 +26,7 @@ const cars = {
           "http://127.0.0.1:8000/api/cars/list",
           { params }
         );
-        commit("setTodos", data);
+        commit("setCars", data);
       } catch (error) {
         console.error(error);
         commit("setError", "Failed fetching cars.");
