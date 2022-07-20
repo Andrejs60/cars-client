@@ -16,6 +16,15 @@ const cars = {
     setCars(state, cars) {
       state.cars = cars;
     },
+    addCar(state, car) {
+      // check if already in state
+      const carIndex = state.cars.findIndex((c) => car.id === c.id);
+      if (carIndex !== -1) {
+        state.cars[carIndex] = car;
+      } else {
+        state.cars.push(car);
+      }
+    },
   },
   actions: {
     async fetchCars({ commit }, params) {
@@ -26,17 +35,41 @@ const cars = {
           "http://127.0.0.1:8000/api/cars/list",
           { params }
         );
-        commit("setCars", data);
+        commit("setCars", data.data);
       } catch (error) {
         console.error(error);
         commit("setError", "Failed fetching cars.");
       }
       commit("setLoading", false);
     },
+    async fetchCar({ commit }, id) {
+      commit("setError", null);
+      commit("setLoading", true);
+      try {
+        const { data } = await axios.get(
+          `http://127.0.0.1:8000/api/cars/get/${id}`
+        );
+        commit("addCar", data.data);
+      } catch (error) {
+        console.error(error);
+        commit("setError", "Failed fetching car.");
+      }
+      commit("setLoading", false);
+    },
   },
   getters: {
+    carsLoading(state) {
+      return state.loading;
+    },
+    carsError(state) {
+      return state.error;
+    },
     allCars(state) {
       return state.cars;
+    },
+    singleCar: (state) => (id) => {
+      const carId = parseInt(id);
+      return state.cars.find((car) => car.id === carId);
     },
   },
 };

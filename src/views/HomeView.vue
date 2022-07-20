@@ -1,22 +1,18 @@
 <template>
-  <div class="home">
+  <div class="view">
     <h1>Home</h1>
-    <CardList />
+    <CarCardList />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import CardList from "@/components/card/CardList.vue";
+import CarCardList from "@/components/car/CarCardList.vue";
 
 export default {
   name: "HomeView",
-  components: { CardList },
+  components: { CarCardList },
 };
 </script>
 
-<style scoped>
-.home {
-  width: 90%;
-}
-</style>
+<style></style>
