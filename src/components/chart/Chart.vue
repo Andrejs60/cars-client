@@ -68,6 +68,7 @@ canvas {
 
 .chart-container {
   /* position: relative; */
-  /* margin: 0 auto; */
+  width: 60vw;
+  margin: 0 auto;
 }
 </style>
