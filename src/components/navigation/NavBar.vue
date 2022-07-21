@@ -13,6 +13,11 @@
             >Manufacturers</router-link
           >
         </li>
+        <li class="navbar-item">
+          <router-link class="navbar-item-link" to="/analytics"
+            >Analytics</router-link
+          >
+        </li>
       </ul>
     </nav>
     <div class="menu" @click.prevent="toggleMenu()">
