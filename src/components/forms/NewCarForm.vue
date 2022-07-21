@@ -3,14 +3,10 @@
     <label for="name">Name:</label>
     <input type="text" v-model="name" placeholder="Name..." />
     <br />
-    <button
-      :disabled="manufacturersLoading"
-      type="submit"
-      class="submit-button"
-    >
-      {{ manufacturersLoading ? "Adding..." : "New" }}
+    <button :disabled="carsLoading" type="submit" class="submit-button">
+      {{ carsLoading ? "Adding..." : "New" }}
     </button>
-    <p v-if="manufacturersError" class="error">{{ manufacturersError }}</p>
+    <p v-if="carsError" class="error">{{ carsError }}</p>
   </form>
 </template>
 
@@ -18,23 +14,23 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "NewManufacturerForm",
+  name: "NewCarForm",
   data() {
     return {
       name: "",
     };
   },
   methods: {
-    ...mapActions(["newManufacturer"]),
+    ...mapActions(["newCar"]),
     async handleSubmit() {
-      await this.newManufacturer(this.name);
-      if (!this.manufacturersError) {
-        this.$router.push("/manufacturers");
+      await this.newCar(this.name);
+      if (!this.carsError) {
+        this.$router.push("/");
       }
     },
   },
   computed: {
-    ...mapGetters(["manufacturersLoading", "manufacturersError"]),
+    ...mapGetters(["carsLoading", "carsError"]),
   },
 };
 </script>

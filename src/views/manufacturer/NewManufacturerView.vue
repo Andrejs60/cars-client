@@ -1,6 +1,6 @@
 <template>
   <div class="new-manufacturer">
-    <h1>new manufacturer view</h1>
+    <h1>New Manufacturer</h1>
     <NewManufacturerForm />
   </div>
 </template>

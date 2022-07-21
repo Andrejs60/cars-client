@@ -38,7 +38,8 @@ const cars = {
         commit("setCars", data.data);
       } catch (error) {
         console.error(error);
-        commit("setError", "Failed fetching cars.");
+        const errorMsg = error.response?.data?.message;
+        commit("setError", errorMsg || "Failed fetching cars.");
       }
       commit("setLoading", false);
     },
@@ -52,7 +53,8 @@ const cars = {
         commit("addCar", data.data);
       } catch (error) {
         console.error(error);
-        commit("setError", "Failed fetching car.");
+        const errorMsg = error.response?.data?.message;
+        commit("setError", errorMsg || "Failed fetching car.");
       }
       commit("setLoading", false);
     },
