@@ -1,7 +1,50 @@
 <template>
   <form @submit.prevent="handleSubmit()">
-    <label for="name">Name:</label>
-    <input type="text" v-model="name" placeholder="Name..." />
+    <div class="field-group">
+      <label for="name">Name:</label>
+      <input type="text" v-model="name" placeholder="Name..." />
+    </div>
+    <div class="field-group">
+      <label for="name">Manufacturer:</label>
+      <select v-model="manufacturerId">
+        <option
+          v-for="manufacturer in allManufacturers"
+          :key="manufacturer.id"
+          :value="manufacturer.id"
+        >
+          {{ manufacturer.name }}
+        </option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="name">Fuel Type:</label>
+      <select v-model="fuelTypeId">
+        <option
+          v-for="fuelType in allFuelTypes"
+          :key="fuelType.id"
+          :value="fuelType.id"
+        >
+          {{ fuelType.name }}
+        </option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="name">Top Speed:</label>
+      <input
+        type="number"
+        v-model="topSpeed"
+        step="0.01"
+        placeholder="Top speed (mph)..."
+      />
+    </div>
+    <div class="field-group">
+      <label for="name">Doors:</label>
+      <input type="number" v-model="doors" placeholder="Doors..." />
+    </div>
+    <div class="field-group">
+      <label for="name">Seats:</label>
+      <input type="number" v-model="seats" placeholder="Seats..." />
+    </div>
     <br />
     <button :disabled="carsLoading" type="submit" class="submit-button">
       {{ carsLoading ? "Adding..." : "New" }}
@@ -18,24 +61,56 @@ export default {
   data() {
     return {
       name: "",
+      manufacturerId: 1,
+      fuelTypeId: 1,
+      topSpeed: "",
+      doors: "",
+      seats: "",
     };
   },
+  created() {
+    this.fetchManufacturers();
+    this.fetchFuelTypes();
+  },
   methods: {
-    ...mapActions(["newCar"]),
+    ...mapActions(["newCar", "fetchManufacturers", "fetchFuelTypes"]),
     async handleSubmit() {
-      await this.newCar(this.name);
+      const car = {
+        name: this.name,
+        manufacturer_id: this.manufacturerId,
+        fuel_type_id: this.fuelTypeId,
+        top_speed: this.topSpeed,
+        doors: this.doors,
+        seats: this.seats,
+      };
+      await this.newCar(car);
       if (!this.carsError) {
         this.$router.push("/");
       }
     },
   },
   computed: {
-    ...mapGetters(["carsLoading", "carsError"]),
+    ...mapGetters([
+      "allFuelTypes",
+      "allManufacturers",
+      "carsLoading",
+      "carsError",
+    ]),
   },
 };
 </script>
 
 <style scoped>
+.field-group {
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-between;
+}
+
+.field-group:last-of-type {
+  margin-bottom: 0;
+}
+
 label {
   font-size: 20px;
   font-weight: bold;
@@ -44,8 +119,21 @@ label {
 
 input {
   padding: 3px;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 5px;
+}
+
+select {
+  padding: 3px;
+  font-size: 18px;
+
+  border-radius: 5px;
+}
+
+input,
+select {
+  width: 240px;
+  border: 2px solid #000;
 }
 
 .submit-button {

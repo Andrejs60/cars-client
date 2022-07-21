@@ -29,13 +29,12 @@ const manufacturers = {
     },
   },
   actions: {
-    async fetchManufacturers({ commit }, params) {
+    async fetchManufacturers({ commit }) {
       commit("setError", null);
       commit("setLoading", true);
       try {
         const { data } = await axios.get(
-          "http://127.0.0.1:8000/api/manufacturers/list",
-          { params }
+          "http://127.0.0.1:8000/api/manufacturers/list"
         );
         commit("setManufacturers", data.data);
       } catch (error) {

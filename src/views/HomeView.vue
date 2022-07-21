@@ -1,9 +1,7 @@
 <template>
   <div class="view">
     <h1>Home</h1>
-    <button @click.prevent="gotoNewManufacturer()" class="nav-button">
-      New Car
-    </button>
+    <button @click.prevent="gotoNewCar()" class="nav-button">New Car</button>
     <CarCardList />
   </div>
 </template>

@@ -58,6 +58,22 @@ const cars = {
       }
       commit("setLoading", false);
     },
+    async newCar({ commit }, car) {
+      commit("setError", null);
+      commit("setLoading", true);
+      try {
+        const { data } = await axios.post(
+          "http://127.0.0.1:8000/api/cars/new",
+          car
+        );
+        commit("addCar", data.data);
+      } catch (error) {
+        console.error(error);
+        const errorMsg = error.response?.data?.message;
+        commit("setError", errorMsg || "Failed adding new car.");
+      }
+      commit("setLoading", false);
+    },
   },
   getters: {
     carsLoading(state) {
