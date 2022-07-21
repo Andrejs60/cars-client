@@ -45,6 +45,10 @@
       <label for="name">Seats:</label>
       <input type="number" v-model="seats" placeholder="Seats..." />
     </div>
+    <div class="field-group">
+      <label for="name">Password:</label>
+      <input type="text" v-model="password" placeholder="Password..." />
+    </div>
     <br />
     <button :disabled="carsLoading" type="submit" class="submit-button">
       {{ carsLoading ? "Adding..." : "New" }}
@@ -66,6 +70,7 @@ export default {
       topSpeed: "",
       doors: "",
       seats: "",
+      password: "",
     };
   },
   created() {
@@ -75,15 +80,16 @@ export default {
   methods: {
     ...mapActions(["newCar", "fetchManufacturers", "fetchFuelTypes"]),
     async handleSubmit() {
-      const car = {
+      const payload = {
         name: this.name,
         manufacturer_id: this.manufacturerId,
         fuel_type_id: this.fuelTypeId,
         top_speed: this.topSpeed,
         doors: this.doors,
         seats: this.seats,
+        password: this.password,
       };
-      await this.newCar(car);
+      await this.newCar(payload);
       if (!this.carsError) {
         this.$router.push("/");
       }

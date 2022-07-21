@@ -58,13 +58,13 @@ const cars = {
       }
       commit("setLoading", false);
     },
-    async newCar({ commit }, car) {
+    async newCar({ commit }, payload) {
       commit("setError", null);
       commit("setLoading", true);
       try {
         const { data } = await axios.post(
           "http://127.0.0.1:8000/api/cars/new",
-          car
+          payload
         );
         commit("addCar", data.data);
       } catch (error) {

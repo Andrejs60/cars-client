@@ -44,13 +44,13 @@ const manufacturers = {
       }
       commit("setLoading", false);
     },
-    async newManufacturer({ commit }, name) {
+    async newManufacturer({ commit }, { name, password }) {
       commit("setError", null);
       commit("setLoading", true);
       try {
         const { data } = await axios.post(
           "http://127.0.0.1:8000/api/manufacturers/new",
-          { name }
+          { name, password }
         );
         commit("addManufacturer", data.data);
       } catch (error) {

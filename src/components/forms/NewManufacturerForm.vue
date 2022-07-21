@@ -1,7 +1,13 @@
 <template>
   <form @submit.prevent="handleSubmit()">
-    <label for="name">Name:</label>
-    <input type="text" v-model="name" placeholder="Name..." />
+    <div class="field-group">
+      <label for="name">Name:</label>
+      <input type="text" v-model="name" placeholder="Name..." />
+    </div>
+    <div class="field-group">
+      <label for="name">Password:</label>
+      <input type="text" v-model="password" placeholder="Password..." />
+    </div>
     <br />
     <button
       :disabled="manufacturersLoading"
@@ -22,12 +28,14 @@ export default {
   data() {
     return {
       name: "",
+      password: "",
     };
   },
   methods: {
     ...mapActions(["newManufacturer"]),
     async handleSubmit() {
-      await this.newManufacturer(this.name);
+      const payload = { name: this.name, password: this.password };
+      await this.newManufacturer(payload);
       if (!this.manufacturersError) {
         this.$router.push("/manufacturers");
       }
@@ -40,6 +48,16 @@ export default {
 </script>
 
 <style scoped>
+.field-group {
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-between;
+}
+
+.field-group:last-of-type {
+  margin-bottom: 0;
+}
+
 label {
   font-size: 20px;
   font-weight: bold;
@@ -48,7 +66,7 @@ label {
 
 input {
   padding: 3px;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 5px;
 }
 
