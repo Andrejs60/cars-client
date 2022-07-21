@@ -13,6 +13,16 @@ const routes = [
     component: () => import("../views/cars/CarView.vue"),
     props: true,
   },
+  {
+    path: "/manufacturers",
+    name: "manufacturers",
+    component: () => import("../views/manufacturer/ManufacturersView.vue"),
+  },
+  {
+    path: "/manufacturers/new",
+    name: "newManufacturer",
+    component: () => import("../views/manufacturer/NewManufacturerView.vue"),
+  },
 ];
 
 const router = createRouter({

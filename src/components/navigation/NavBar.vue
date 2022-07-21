@@ -8,6 +8,11 @@
         <li class="navbar-item">
           <router-link class="navbar-item-link" to="/">Home</router-link>
         </li>
+        <li class="navbar-item">
+          <router-link class="navbar-item-link" to="/manufacturers"
+            >Manufacturers</router-link
+          >
+        </li>
       </ul>
     </nav>
     <div class="menu" @click.prevent="toggleMenu()">
