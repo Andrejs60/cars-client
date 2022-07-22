@@ -5,11 +5,14 @@
       :subHeading="car.manufacturer.name"
       :contentText="contentText"
       @goto="gotoCar(car.id)"
+      @buttonPress="addCartItem(car)"
+      buttonText="Add to cart"
     />
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Card from "../card/Card.vue";
 
 export default {
@@ -29,6 +32,7 @@ export default {
     gotoCar(id) {
       this.$router.push(`/cars/${id}`);
     },
+    ...mapActions(["addCartItem"]),
   },
 };
 </script>

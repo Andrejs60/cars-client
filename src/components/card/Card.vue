@@ -3,17 +3,43 @@
     <h1>{{ heading }}</h1>
     <h2>{{ subHeading }}</h2>
     <h3>{{ contentText }}</h3>
+    <button
+      v-if="buttonText"
+      @click.stop="$emit('buttonPress')"
+      class="card-button"
+    >
+      {{ buttonText }}
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Card",
-  props: ["heading", "subHeading", "contentText"],
+  props: ["heading", "subHeading", "contentText", "buttonText"],
 };
 </script>
 
 <style scoped>
+.card-button {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  background: #00b4d8;
+  color: #fff;
+}
+
+.card-button:hover {
+  cursor: pointer;
+  background: #48cae4;
+}
+
 .card {
   width: 100%;
   background: #caf0f8;

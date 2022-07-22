@@ -33,6 +33,11 @@ const routes = [
     name: "analytics",
     component: () => import("../views/analytics/AnalyticsView.vue"),
   },
+  {
+    path: "/cart",
+    name: "cart",
+    component: () => import("../views/cart/CartView.vue"),
+  },
 ];
 
 const router = createRouter({

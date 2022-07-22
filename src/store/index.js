@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import cars from "./modules/cars";
 import manufacturers from "./modules/manufacturers";
 import fuelTypes from "./modules/fuelTypes";
+import cart from "./modules/cart";
 
 export default createStore({
   state: {},
@@ -12,5 +13,6 @@ export default createStore({
     cars,
     manufacturers,
     fuelTypes,
+    cart,
   },
 });

@@ -18,6 +18,11 @@
             >Analytics</router-link
           >
         </li>
+        <li class="navbar-item cart">
+          <router-link class="navbar-item-link" to="/cart"
+            >CART {{ cartSize ? `(${cartSize})` : "" }}</router-link
+          >
+        </li>
       </ul>
     </nav>
     <div class="menu" @click.prevent="toggleMenu()">
@@ -29,6 +34,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "NavBar",
   data() {
@@ -41,10 +48,18 @@ export default {
       this.showMenu = !this.showMenu;
     },
   },
+  computed: {
+    ...mapGetters(["cartSize"]),
+  },
 };
 </script>
 
 <style scoped>
+.cart {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
 .navbar-container {
   display: flex;
   width: 100%;
