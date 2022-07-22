@@ -2,9 +2,14 @@ import axios from "axios";
 
 const cars = {
   state: () => ({
+    loading: false,
+    error: null,
     items: {},
   }),
   mutations: {
+    setCart(state, cart) {
+      state.items = cart;
+    },
     addItem(state, item) {
       // Add item to state
       if (!state.items[item.id]) {
@@ -32,8 +37,36 @@ const cars = {
     },
   },
   actions: {
-    addCartItem({ commit }, item) {
+    async fetchCart({ commit }) {
+      commit("setError", null);
+      commit("setLoading", true);
+      try {
+        const { data } = await axios.get("http://127.0.0.1:8000/api/cart");
+        console.log("fetchcart", data);
+        commit("setCart", data || {});
+      } catch (error) {
+        console.error(error);
+        const errorMsg = error.response?.data?.message;
+        commit("setError", errorMsg || "Failed fetching cart.");
+      }
+      commit("setLoading", false);
+    },
+    async addCartItem({ commit, state }, item) {
       commit("addItem", item);
+      commit("setError", null);
+      commit("setLoading", true);
+      try {
+        const { data } = await axios.post("http://127.0.0.1:8000/api/cart", {
+          cart: state.items,
+        });
+        console.log(data);
+        commit("setCart", data);
+      } catch (error) {
+        console.error(error);
+        const errorMsg = error.response?.data?.message;
+        commit("setError", errorMsg || "Failed fetching cart.");
+      }
+      commit("setLoading", false);
     },
     removeCartItem({ commit }, item) {
       commit("removeItem", item);

@@ -43,10 +43,14 @@ export default {
       showMenu: false,
     };
   },
+  created() {
+    this.fetchCart();
+  },
   methods: {
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
+    ...mapActions(["fetchCart"]),
   },
   computed: {
     ...mapGetters(["cartSize"]),
